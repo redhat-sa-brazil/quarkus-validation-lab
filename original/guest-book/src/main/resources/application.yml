@@ -1,0 +1,54 @@
+server:
+  port: 3000
+
+spring:
+  rabbitmq:
+    username: guest
+    password: guest
+    host: ${rabbitmq.host:localhost}
+    port: ${rabbitmq.port:15672}
+    exchange: user.exchange
+    queue: user.queue
+    routingkey: user.routingkey
+  security:
+    user:
+      password: 1234qwer
+  application:
+    name: ${name:guest-book}
+  profiles:
+    active: ${profiles.active:local}
+  data:
+    mongodb:
+      uri: ${mongodb.uri:mongodb://localhost:27017/guest-book}
+  datasource:
+    url: jdbc:oracle:thin:@${oracle.host:localhost}:${oracle.port:1521}/xepdb1
+    username: GUEST_BOOK
+    password: 1234qwer
+    driver-class-name: oracle.jdbc.OracleDriver
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.Oracle10gDialect
+        hibernate.synonyms: true
+        dll-auto: update
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'health,shutdown,prometheus'
+    enable-by-default: false
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      enabled: true
+    info:
+      enabled: true
+    prometheus:
+      enabled: true

@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "26c1b8aa-9aed-4560-88d6-dd6ead32eb59",
+		"name": "Spring Big POC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "post guest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f444205-53af-44d3-9ebf-de0464aa57cd",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Guest registered successfully\", function () {",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"    pm.environment.set(\"current_guest_id\", jsonData.id);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Ferdiand Magellan\",\n    \"email\": \"magellan@domain.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/guests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"guests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get guests",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/guests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"guests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get single guest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/guests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"guests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get timing records",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/timing-log-entries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"timing-log-entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get actuator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/guests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"guests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get actuator health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/guests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"guests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get actuator prometheus",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/guests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"guests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post shutdown",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/actuator/shutdown",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"actuator",
+						"shutdown"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "1234qwer",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "user",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f6757fb0-a06f-4313-8d86-2baeefbae415",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6e421aac-8d51-4287-abba-b3e867d377dd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

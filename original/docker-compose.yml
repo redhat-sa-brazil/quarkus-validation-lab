@@ -1,0 +1,75 @@
+version: '3'
+services:
+
+  guest-book:
+    container_name: sbbp-guest-book
+    depends_on:
+      - mongo
+      - oracle
+      - rabbitmq
+    build:
+      context: ./guest-book
+    ports:
+      - "3000:3000"
+    environment:
+      oracle.host: oracle
+      mongodb.uri: mongodb://mongo:27017/guest-book
+      rabbitmq.host: rabbit
+
+  oracle:
+    container_name: oracle18xe-org-leonardo
+    build:
+      context: ./oracle/xe-18.4.0
+      dockerfile: Dockerfile.xe
+      args:
+        - DBEDITION=xe
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    volumes:
+      - "oracle-base:/opt/oracle"
+      - "./oracle/scripts:/opt/oracle/scripts"
+    environment:
+      ORACLE_PWD: 1234qwer
+
+  mongo:
+    image: mongo:3
+    ports:
+      - "27017:27017"
+    volumes:
+      - "mongo-base:/data/db"
+
+  prometheus:
+    image: "prom/prometheus:latest"
+    container_name: prometheus-org-leonardo
+    depends_on:
+      - guest-book
+    ports:
+      - "9090:9090"
+    volumes:
+      - "./prometheus/etc/prometheus.yml:/etc/prometheus/prometheus.yml"
+
+  consul1:
+    image: "consul:0.9.3"
+    container_name: "consul1"
+    hostname: "consul1"
+    ports:
+      - "8300:8300"
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:53"
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    labels:
+      NAME: "rabbitmq"
+    volumes:
+      - ./rabbitmq-user-guest.conf
+
+volumes:
+  oracle-base:
+  mongo-base:
